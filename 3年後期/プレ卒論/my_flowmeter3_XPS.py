@@ -1,21 +1,22 @@
 import pandas as pd
 import numpy as np
 import os
-import gc
-from scapy.all import PcapReader, IP, TCP, UDP 
+import gc  # ★追加：メモリ解放用
+from scapy.all import PcapReader, IP, TCP, UDP # ★変更：rdpcapを削除しPcapReaderを追加
 import warnings
 
 warnings.filterwarnings("ignore")
 
-INPUT_DIR = r"/home/ken/Documents/プレ卒論/PCAP"
-OUTPUT_DIR = r"/home/ken/Documents/プレ卒論/CSV"
+INPUT_DIR = r"D:\PCAP"
+OUTPUT_DIR = r"D:\CSV"
+
 def extract_features(pcap_path):
     print(f"🔄 ストリーミング解析開始: {pcap_path}")
     
     flows = {}
     packet_count = 0
 
-
+    # ★変更：with構文とPcapReaderを使って、1パケットずつ読み込む
     try:
         with PcapReader(pcap_path) as pcap_reader:
             for pkt in pcap_reader:
@@ -71,7 +72,7 @@ def extract_features(pcap_path):
     print(f"\n✅ 読み込み完了。パケット数: {packet_count}")
     print("📊 特徴量計算を実行中...")
 
-
+    # --- 特徴量の計算 (ここは変更なし) ---
     dataset = []
     
     # フロー数が多い場合の対策として、処理済みの辞書を逐次処理するのが理想ですが
