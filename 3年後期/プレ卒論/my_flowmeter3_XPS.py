@@ -118,7 +118,7 @@ def extract_features(pcap_path):
 
     return pd.DataFrame(dataset)
 
-# メイン処理は変更なし
+
 if __name__ == "__main__":
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
