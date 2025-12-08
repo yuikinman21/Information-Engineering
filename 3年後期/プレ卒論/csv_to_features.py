@@ -21,8 +21,8 @@ warnings.filterwarnings("ignore")
 # ==========================================
 # 1. 設定
 # ==========================================
-INPUT_DIR = r"/home/ken/Documents/プレ卒論/PCAP"
-OUTPUT_DIR = r"/home/ken/Documents/プレ卒論/CSV"
+INPUT_RAW_DIR = r"/home/ken/Documents/プレ卒論/PCAP"
+OUTPUT_FLOW_DIR = r"/home/ken/Documents/プレ卒論/CSV_Flow3"
 
 # ------------------------------------------
 # ヘルパー関数: 16進数文字列をintに変換
