@@ -159,8 +159,6 @@ def process_raw_csv(file_path):
         syn_count=('is_syn', 'sum'),
         rst_count=('is_rst', 'sum'),
         fin_count=('is_fin', 'sum')
-
-        
     ).reset_index()
 
     # Flow Duration (終了時刻 - 開始時刻)
