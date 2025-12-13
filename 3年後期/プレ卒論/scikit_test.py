@@ -3,9 +3,8 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-# ==========================================
+
 # 1. 設定・ファイルリストの定義
-# ==========================================
 
 # --- 正常データ ---
 # 学習用に1つ、テスト用に1つ
@@ -30,9 +29,9 @@ DROP_COLUMNS = [
     'flow_id', 'src_ip', 'dst_ip', 'src_port', 'dst_port', 'timestamp', 'label'
 ]
 
-# ==========================================
+
 # 2. 関数定義
-# ==========================================
+
 
 def load_files(file_list, label_value):
     """ 指定されたファイルリストを読み込み、ラベルを付与して結合 """
@@ -71,9 +70,9 @@ def preprocess_data(df, is_training=True):
 
     return X, y
 
-# ==========================================
+
 # 3. メイン処理
-# ==========================================
+
 
 def main():
     print("=== [動作検証モード] 処理を開始します ===")
@@ -103,8 +102,7 @@ def main():
 
     # C. 学習
     print("\n[Step 3] 学習 (Random Forest)")
-    # 動作確認用なので木の数(n_estimators)を減らして高速化してもOK（例: 100 -> 10）
-    rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+    rf_model = RandomForestClassifier(n_estimators=100, random_state=42) # ランダムフォレストモデルの初期化
     rf_model.fit(X_train, y_train)
     print("  -> 完了")
 
