@@ -1,0 +1,13 @@
+#AJG23055_牧野唯希
+
+CXX=g++
+
+sample.exe: sample.o ex2image.o
+	$(CXX) -o sample.exe sample.o ex2image.o
+ex2image.o:ex2image.cpp
+	$(CXX) -c -o ex2image.o ex2image.cpp
+sample.o: sample.cpp
+	$(CXX) -c -o sample.o sample.cpp
+
+clean:
+	rm -f sample.exe sample.o ex2image.o

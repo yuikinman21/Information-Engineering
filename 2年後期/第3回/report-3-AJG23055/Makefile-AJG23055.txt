@@ -1,0 +1,17 @@
+#Makefile_AJG23055_牧野唯希
+#codespacesで作成
+#C++でrand関数を使うところで、うまくいかなかったため、ネットで検索しながら取り組んだ。分割コンパイルは完璧に理解することはできなかったが、大体の使い方は理解できた。
+
+CXX=g++
+
+report-3-AJG23055.exe: report-3-AJG23055_main.o report-3_poker.o report-3-AJG23055_pokergame.o
+	$(CXX) -o report-3-AJG23055.exe report-3-AJG23055_main.o report-3_poker.o report-3-AJG23055_pokergame.o
+report-3-AJG23055_main.o:
+	$(CXX) -c -o report-3-AJG23055_main.o report-3-AJG23055_main.cpp
+report-3_poker.o:
+	$(CXX) -c -o report-3_poker.o report-3_poker.cpp
+report-3-AJG23055_pokergame.o:
+	$(CXX) -c -o report-3-AJG23055_pokergame.o report-3-AJG23055_pokergame.cpp
+
+clean:
+	rm -f report-3-AJG23055.exe report-3-AJG23055_main.o report-3_poker.o report-3-AJG23055_pokergame.o report-3_poker.exe
