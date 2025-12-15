@@ -75,7 +75,7 @@ def preprocess_data(df, is_training=True):
 
 
 def main():
-    print("=== [動作検証モード] 処理を開始します ===")
+    print("=== 処理を開始 ===")
 
     # A. データの読み込み
     print("\n[Step 1] ファイル読み込み")
