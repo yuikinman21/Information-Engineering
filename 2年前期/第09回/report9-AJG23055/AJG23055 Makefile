@@ -1,0 +1,17 @@
+
+CC = gcc
+CFLAGS = -Wall -g -O2
+
+all: kadai8-AJG23055-1-main.exe
+
+kadai8-AJG23055-1-main.exe: kadai8-AJG23055-1-main.o kadai8-AJG23055-1.o
+	$(CC) $(CFLAGS) -o kadai8-AJG23055-1-main.exe kadai8-AJG23055-1-main.o kadai8-AJG23055-1.o
+
+kadai8-AJG23055-1-main.o: kadai8-AJG23055-1-main.c kadai8-AJG23055-1.h
+	$(CC) $(CFLAGS) -c kadai8-AJG23055-1-main.c
+
+kadai8-AJG23055-1.o: kadai8-AJG23055-1.c kadai8-AJG23055-1.h
+	$(CC) $(CFLAGS) -c kadai8-AJG23055-1.c
+
+clean:
+	rm -f kadai8-AJG23055-1-main.exe kadai8-AJG23055-1-main.o kadai8-AJG23055-1.o
