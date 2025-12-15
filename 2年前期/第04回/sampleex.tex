@@ -1,0 +1,88 @@
+\documentclass{ltjsarticle}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % 数式関係のパッケージ
+
+% % はコメントです. コンパイルの際には無視されます.
+
+\title{演習 I 第 4 回}
+\author{岡田 真}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\verb|\section{}| で章を始めます. 
+改行では改行されません. 
+
+空白で改行されます. 
+
+\section{数式}
+
+文書中に数式 $a=b+c$ を書きたい場合は，\$で数式を挟みます． 
+
+行替えを行って数式を書く場合は，\verb|\begin{equation}, \end{equation}|を使います．
+
+式\ref{eq:abc}は式の例です.
+
+\begin{equation} \label{eq:abc}
+a=b+c 
+\end{equation} 
+
+式\ref{eq:abcsep}は複数行の式の例です.
+
+\begin{equation} \label{eq:abcsep}
+\begin{split}
+a &= b+c\\
+  &= d+e
+\end{split}
+\end{equation} 
+
+色々な数式表現： $x^2$, $x^{10}$, $A_n$, $\frac{1+x}{2-y}$
+
+\section{表の書き方}
+
+表は table と tabular で書きます. 
+
+表\ref{tab:baseball}は野球の順位の表です. 
+
+\begin{table}[tb] 
+\caption{プロ野球セントラルリーグ2016年9月29日の順位}
+\label{tab:baseball}
+\centering 
+\begin{tabular}{|l|l|r|r|} 
+\hline 
+順位&チーム名&勝率&差\\ 
+\hline\hline 
+1&広島東洋&.626&-\\ 
+\hline 
+2&読売&.518&15.0\\ 
+\hline 
+3&横浜DeNA&.496&18.0\\ 
+\hline 
+4&東京ヤクルト&.450&24.5\\ 
+\hline 
+5&阪神&.449&24.5\\ 
+\hline 
+6&中日&.414&29.5\\ 
+\hline 
+\end{tabular} 
+\end{table} 
+
+\section{図の貼り方} 
+
+図はincludegraphicsを使って貼り付けします． 
+
+{\TeX} で　{\TeX} のロゴが出力されます. 
+{\TeX} で用いられる画像ファイル形式は主にPDFです． 
+
+図\ref{fig:apple} はリンゴです.
+
+\begin{figure}[tb] 
+    \centering 
+    \includegraphics[width =0.8\hsize]{./apple.pdf} 
+    \caption{リンゴ} 
+    \label{fig:apple} 
+\end{figure}
+
+\end{document}
