@@ -1,28 +1,30 @@
 import pandas as pd
 import numpy as np
+import glob
+import os
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
+# ==========================================
+# 1. 設定・ファイルリストの定義 (自動取得版)
+# ==========================================
 
-# 1. 設定・ファイルリストの定義
 
-# --- 正常データ ---
-# 学習用に1つ、テスト用に1つ
-normal_files_train = [
-    "D:\\CSV_Flow\\CSV_Normal\\flow_normal_2018-09-14-13-40-25-Philips-Hue-Bridge.csv"
-]
-normal_files_test = [
-    "D:\\CSV_Flow\\CSV_Normal\\flow_normal_2018-09-21-capture.csv"
-]
+NORMAL_DIR = r"D:\CSV_Flow\CSV_Normal\*.csv"
+ATTACK_DIR = r"D:\CSV_Flow\CSV_Attacked\*.csv"
 
-# --- 攻撃データ ---
-# 学習用に1つ、テスト用に1つ
-attack_files_train = [
-    "D:\\CSV_Flow\\CSV_Attacked\\flow_attack_2018-10-02-13-12-30-192.168.100.103.csv"
-]
-attack_files_test = [
-    "D:\\CSV_Flow\\CSV_Attacked\\flow_attack_2018-10-03-15-22-32-192.168.100.113.csv"
-]
+print("ファイルを検索中...")
+all_normal_files = glob.glob(NORMAL_DIR)
+all_attack_files = glob.glob(ATTACK_DIR)
+
+print(f"  -> 正常ファイル: {len(all_normal_files)} 個見つかりました")
+print(f"  -> 攻撃ファイル: {len(all_attack_files)} 個見つかりました")
+
+# ★ここを追加: ファイル単位で学習用(70%)とテスト用(30%)にランダム分割
+# これにより、特定の攻撃種類が片方に偏るのを防ぎつつ、未知のファイルでテストできます
+train_normal_files, test_normal_files = train_test_split(all_normal_files, test_size=0.3, random_state=42)
+train_attack_files, test_attack_files = train_test_split(all_attack_files, test_size=0.3, random_state=42)
 
 # 学習・評価に不要な列のリスト
 DROP_COLUMNS = [
@@ -36,21 +38,22 @@ DROP_COLUMNS = [
 def load_files(file_list, label_value):
     """ 指定されたファイルリストを読み込み、ラベルを付与して結合 """
     df_list = []
-    for filename in file_list:
+    for i, filename in enumerate(file_list):
         try:
             df = pd.read_csv(filename)
             df['label'] = label_value # ラベル付与
             df_list.append(df)
-            print(f"  OK: {filename} を読み込みました (行数: {len(df)})") 
-        except FileNotFoundError:
-            print(f"  Error: ファイルが見つかりません -> {filename}")
+            
+            if (i + 1) % 5 == 0: # 5ファイルごとに進捗表示
+                print(f"  [{i+1}/{len(file_list)}] 読み込み完了: {os.path.basename(filename)}")
+                
         except Exception as e:
             print(f"  Error: {filename} の読み込みエラー -> {e}")
 
     if not df_list:
         return pd.DataFrame() # 空のデータフレームを返す
     
-    return pd.concat(df_list, ignore_index=True) # データフレームを結合
+    return pd.concat(df_list, ignore_index=True)
 
 def preprocess_data(df, is_training=True):
     """ データの前処理（シャッフル、不要列削除、欠損値処理） """
@@ -79,10 +82,13 @@ def main():
 
     # A. データの読み込み
     print("\n[Step 1] ファイル読み込み")
-    train_normal = load_files(normal_files_train, 0)
-    train_attack = load_files(attack_files_train, 1)
-    test_normal = load_files(normal_files_test, 0)
-    test_attack = load_files(attack_files_test, 1)
+    print("--- 正常データの読み込み ---")
+    train_normal = load_files(train_normal_files, 0) # ラベル0
+    test_normal = load_files(test_normal_files, 0) # ラベル0
+    
+    print("--- 攻撃データの読み込み ---")
+    train_attack = load_files(train_attack_files, 1) # ラベル1
+    test_attack = load_files(test_attack_files, 1) # ラベル1
 
     # 結合
     train_full = pd.concat([train_normal, train_attack], ignore_index=True) # 学習データ
@@ -102,7 +108,16 @@ def main():
 
     # C. 学習
     print("\n[Step 3] 学習 (Random Forest)")
-    rf_model = RandomForestClassifier(n_estimators=100, random_state=42) # ランダムフォレストモデルの初期化
+    
+    # ★ここを変更: class_weight='balanced' を追加して不均衡データに対処
+    # n_jobs=-1 で全CPUコアを使用して高速化
+    rf_model = RandomForestClassifier(
+        n_estimators=100, 
+        class_weight='balanced', 
+        random_state=42,
+        n_jobs=-1 
+    )
+    
     rf_model.fit(X_train, y_train)
     print("  -> 完了")
 
