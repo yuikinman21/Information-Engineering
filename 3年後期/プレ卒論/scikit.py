@@ -18,7 +18,7 @@ ATTACK_DIR = r"D:\CSV_Flow\CSV_Attacked\*.csv"
 RATIO_NORMAL = 1.0
 RATIO_ATTACK = 0.001 
 
-# 学習・評価に不要な列（読み込み直後に削除してメモリを節約します）
+# 学習・評価に不要な列
 DROP_COLUMNS = [
     'flow_id', 'src_ip', 'dst_ip', 'src_port', 'dst_port', 'timestamp', 'label'
 ]
