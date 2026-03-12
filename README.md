@@ -1,8 +1,7 @@
-
 # Information Engineering Archive
 
-大阪公立大学 工学部 情報工学科における講義・演習・実験、および研究活動（プレ卒論）の成果物をまとめたアーカイブです。
-プログラミングの基礎から、ネットワークトラフィック解析を行うスクリプトまで、学年ごとの学習過程を記録しています。
+大阪公立大学 工学部 情報工学科における講義・演習・実験の成果物をまとめたアーカイブです。
+プログラミングの基礎から、ハードウェア記述言語によるFPGA開発、システムプログラミング（コンパイラ自作）、制御理論のシミュレーションまで、1年次から3年次までの幅広い学習過程を記録しています。
 
 ## 📂 ディレクトリ構成 (Directory Structure)
 
@@ -10,70 +9,63 @@
 
 ```text
 .
-├── 1年/                       # プログラミング入門 (C言語基礎)
-│   ├── calculator.c           # 四則演算
-│   ├── bmi.c                  # BMI計算
-│   ├── matrix.c               # 行列演算
-│   ├── numberguess.c          # 数当てゲーム
-│   └── ... (その他 基礎演習コード)
+├── 1年/              # プログラミング入門・ビジュアルプログラミング
+│   ├── Processing/   # Processingを用いたグラフィック・ゲーム制作演習
+│   └── プログラミング入門A/ # C言語の基礎（四則演算、BMI計算、行列演算など）
 │
-├── 3年後期/
-│   └── プレ卒論/               # ネットワークトラフィック解析ツール
-│       ├── PCAP/              # (解析対象のPCAPファイル置き場)
-│       ├── CSV_Tshark/        # Tsharkによる中間出力
-│       ├── CSV_Flow/          # 特徴量抽出後のフローデータ
-│       ├── Tshark.py          # PCAPパケット情報をCSVに変換するスクリプト
-│       ├── csv_to_features.py # パケットデータからフロー統計量(IAT等)を算出するスクリプト
-│       └── ...
+├── 2年前期/          # 情報工学演習I (C/C++基礎)
+│   └── 第01回〜第15回/ # C言語でのアルゴリズム実装、C++によるオブジェクト指向入門
 │
-├── TeX/                       # レポート・文書作成関連
-│   └── test.tex
+├── 2年後期/          # 情報工学演習II (C++/Java応用)
+│   └── 第1回〜第15回/  # C++での画像処理（PGM形式）、Javaを用いた図形描画・オブジェクト指向演習
 │
-└── README.md
-````
+├── 3年前期/          # 情報工学実験1〜5
+│   ├── 実験1/        # FPGA開発 (Verilog HDL, Quartusを用いた論理回路設計)
+│   ├── 実験2/        # 加速度センシングとデータ補正 (Excel/物理シミュレーション)
+│   ├── 実験3/        # 知能実験 (Pythonによる巡回セールスマン問題の実装・評価)
+│   ├── 実験4/        # 感性データの分析 (C言語による統計処理・行列計算)
+│   └── 実験5/        # アルゴリズム実装 (PythonによるMinimax法を用いた三目並べ等)
+│
+└── 3年後期/          # 専門科目の発展演習
+    ├── システムプログラム/ # Javaを用いたサブセット言語コンパイラ「Chavac」の開発
+    ├── 意思決定理論/    # Pythonを用いた最適化問題・意思決定モデルの実装
+    └── 線形フィードバック制御/ # Jupyter Notebookを用いた制御理論の安定性解析シミュレーション
+```
 
 ## 🚀 主要プロジェクト (Key Projects)
 
-### 🛡️ プレ卒論: ネットワークトラフィック解析ツール(現在研究中)
+### ⚙️ システムプログラム: コンパイラ自作 (`Chavac`)
+Javaを用いて、独自のサブセット言語をコンパイルする「Chavac」を実装しました。
+字句解析、構文解析からコード生成までのプロセスをスクラッチで構築し、言語処理系の内部構造について深く理解しました。
 
-Wireshark (Tshark) と Python (Pandas) を組み合わせ、PCAPファイルから機械学習用の特徴量を抽出するパイプラインを構築しました。
+### 🔌 情報工学実験1: FPGA論理回路設計
+Verilog HDLを使用し、Intel Quartus Prime上で論理回路を設計・実装しました。
+加算器やステートマシンなどのハードウェアコンポーネントをコーディングし、実際のFPGAボード（DE10-Lite）上での動作検証を行いました。
 
-  * **Tshark.py**:
-      * `tshark` コマンドをPythonから呼び出し、大量のPCAPファイルを高速にCSV形式（パケット単位）へ変換。
-      * 抽出フィールド: タイムスタンプ, IP(src/dst), Port(src/dst), プロトコル, パケット長, TCPフラグ。
-  * **csv\_to\_features.py**:
-      * パケット列を「双方向フロー (Flow)」として再構築。
-      * **特徴量抽出**: 到着間隔 (IAT) の統計量 (mean, std, max, min)、パケットサイズの統計量、TCPフラグ (SYN, FIN, RST) のカウントなど。
-      * **高速化の工夫**: `pandas` のベクトル演算と `groupby` を活用し、ループ処理を極力排除して処理速度を向上。
+### 🤖 情報工学実験・アルゴリズム実装
+* **巡回セールスマン問題 (TSP)**: Pythonを用いて、組み合わせ最適化問題に対するヒューリスティックな解法を実装し、計算量や精度を評価しました。
+* **ゲームAI実装**: Minimax法を用いた三目並べ（Tic-Tac-Toe）など、探索アルゴリズムを応用したプログラムを構築しました。
 
-### 💻 1年次演習: C言語アルゴリズム基礎
-
-情報工学の基礎となるC言語によるアルゴリズム実装。
-
-  * 入出力、条件分岐、ループ処理
-  * 関数、ポインタ、構造体
-  * 数値計算（行列、階乗、総和など）
+### 📈 線形フィードバック制御シミュレーション
+Jupyter Notebook (`.ipynb`) とPythonのエコシステムを活用し、制御工学におけるシステムの安定性解析や、定常偏差、ステップ応答などのシミュレーション・可視化を行いました。
 
 ## 🛠 使用技術 (Technology Stack)
 
-  * **Languages**: C, Python 3, LaTeX
-  * **Libraries (Python)**:
-      * `pandas`, `numpy`: データ処理・統計計算
-      * `subprocess`: 外部コマンド実行
-  * **Tools**:
-      * `Wireshark (Tshark)`: パケットキャプチャ解析
-      * `GCC`: Cコンパイラ
-      * `VS Code`: 開発環境
+* **Languages**: C, C++, Java, Python 3, Verilog HDL
+* **Frameworks & Ecosystems**: Processing, Jupyter Notebook
+* **Tools & Environments**: 
+    * `Intel Quartus Prime`: FPGA開発
+    * `GCC` / `G++`: C/C++コンパイラ
+    * `JDK`: Java開発環境
+    * `VS Code`: 統合開発環境
 
 ## 👤 Author
 
 **YUIKI MAKINO**
 
-  * Osaka Metropolitan University
-  * Department of Information Engineering
+* Osaka Metropolitan University
+* Department of Information Engineering
 
------
+---
 
 *Note: This repository is for educational and archival purposes.*
-
-```
