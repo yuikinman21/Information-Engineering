@@ -1,4 +1,3 @@
-
 # Information Engineering Archive
 
 大阪公立大学 工学部 情報工学科における講義・演習・実験の成果物をまとめたアーカイブです。
@@ -31,10 +30,11 @@
     ├── システムプログラム/ # Javaを用いたサブセット言語コンパイラ「Chavac」の開発
     ├── 意思決定理論/    # Pythonを用いた最適化問題・意思決定モデルの実装
     └── 線形フィードバック制御/ # Jupyter Notebookを用いた制御理論の安定性解析シミュレーション
-
 ```
+
 ## 🚀 主要プロジェクト (Key Projects)
-### ⚙️ システムプログラム: コンパイラ自作 (Chavac)
+
+### ⚙️ システムプログラム: コンパイラ自作 (`Chavac`)
 Javaを用いて、独自のサブセット言語をコンパイルする「Chavac」を実装しました。
 字句解析、構文解析からコード生成までのプロセスをスクラッチで構築し、言語処理系の内部構造について深く理解しました。
 
@@ -43,33 +43,29 @@ Verilog HDLを使用し、Intel Quartus Prime上で論理回路を設計・実�
 加算器やステートマシンなどのハードウェアコンポーネントをコーディングし、実際のFPGAボード（DE10-Lite）上での動作検証を行いました。
 
 ### 🤖 情報工学実験・アルゴリズム実装
-巡回セールスマン問題 (TSP): Pythonを用いて、組み合わせ最適化問題に対するヒューリスティックな解法を実装し、計算量や精度を評価しました。
-
-ゲームAI実装: Minimax法を用いた三目並べ（Tic-Tac-Toe）など、探索アルゴリズムを応用したプログラムを構築しました。
+* **巡回セールスマン問題 (TSP)**: Pythonを用いて、組み合わせ最適化問題に対するヒューリスティックな解法を実装し、計算量や精度を評価しました。
+* **ゲームAI実装**: Minimax法を用いた三目並べ（Tic-Tac-Toe）など、探索アルゴリズムを応用したプログラムを構築しました。
 
 ### 📈 線形フィードバック制御シミュレーション
-Jupyter Notebook (.ipynb) とPythonのエコシステムを活用し、制御工学におけるシステムの安定性解析や、定常偏差、ステップ応答などのシミュレーション・可視化を行いました。
+Jupyter Notebook (`.ipynb`) とPythonのエコシステムを活用し、制御工学におけるシステムの安定性解析や、定常偏差、ステップ応答などのシミュレーション・可視化を行いました。
 
 ## 🛠 使用技術 (Technology Stack)
 
-  * **Languages**: C, Python 3, LaTeX
-  * **Libraries (Python)**:
-      * `pandas`, `numpy`: データ処理・統計計算
-      * `subprocess`: 外部コマンド実行
-  * **Tools**:
-      * `Wireshark (Tshark)`: パケットキャプチャ解析
-      * `GCC`: Cコンパイラ
-      * `VS Code`: 開発環境
+* **Languages**: C, C++, Java, Python 3, Verilog HDL
+* **Frameworks & Ecosystems**: Processing, Jupyter Notebook
+* **Tools & Environments**: 
+    * `Intel Quartus Prime`: FPGA開発
+    * `GCC` / `G++`: C/C++コンパイラ
+    * `JDK`: Java開発環境
+    * `VS Code`: 統合開発環境
 
 ## 👤 Author
 
 **YUIKI MAKINO**
 
-  * Osaka Metropolitan University
-  * Department of Information Engineering
+* Osaka Metropolitan University
+* Department of Information Engineering
 
------
+---
 
 *Note: This repository is for educational and archival purposes.*
-
-```
